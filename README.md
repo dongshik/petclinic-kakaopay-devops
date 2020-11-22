@@ -18,14 +18,17 @@ $ gradle clean jib
 ## 2. Kubernetes 클러스터에 배포
 동일한 경로에서 다음을 수행합니다.
 
-1. (생략 가능) Ingress-Controller 생성
-실행중인 클러스터에 실행중인 incress-controller가 있다면, 이 단계는 생략합니다.
+1. (생략 가능) Ingress Controller 실행
+
+    배포할 클러스터에 이미 실행중인 incress-controller가 있다면, 이 단계는 생략합니다.
 
     ```
     $ kubectl apply -f ./manifest/ingress-nginx/ingress-nginx.yaml
     ```
 
-1. petclinic 및 mysql 배포
+1. manifest 배포
+
+    아래 명령어를 통해 `ingress.yaml`, `mysql.yaml`, `petclinic.yaml`을 클러스터에 배포합니다.
 
     ```
     $ kubectl apply -f ./manifest/
