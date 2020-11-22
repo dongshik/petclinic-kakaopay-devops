@@ -43,7 +43,7 @@ $ kubectl -n ingress-nginx get svc ingress-nginx-controller
 <br/>
 
 ## 참고
-이 프로젝트는 uid=1000 인 USER가 생성되어있는 이미지 [openjdk-11-adduser](https://hub.docker.com/r/lssang0000/openjdk-11-adduser)를 사용합니다. 해당 이미지를 빌드하기 위한 Dockerfile은 `./openjdk-11-adduser`에서 확인할 수 있습니다.
+이 프로젝트는 uid=1000 인 USER가 생성되어있는 이미지 [openjdk-11-adduser](https://hub.docker.com/r/lssang0000/openjdk-11-adduser/tags)를 사용합니다. 해당 이미지를 빌드하기 위한 Dockerfile은 `./openjdk-11-adduser`에서 확인할 수 있습니다.
 
 
 
