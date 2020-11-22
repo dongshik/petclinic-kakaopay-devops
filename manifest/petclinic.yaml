@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic-svc
+  labels:
+    app: petclinic
+    tier: webapp
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: webapp-http
+  selector:
+    app: petclinic
+    tier: webapp
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-deploy
+  labels:
+    app: petclinic
+    tier: webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: petclinic
+      tier: webapp
+  template:
+    metadata:
+      name: petclinic
+      labels:
+        app: petclinic
+        tier: webapp
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: petclinic-container
+        image: lssang0000/petclinic-kakaopay-devops:0.0.1
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /manage/health/liveness
+            port: 8080
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe: 
+          httpGet:
+            path: /manage/health/readiness
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        ports:
+        - name: webapp-http
+          containerPort: 8080
+        securityContext:
+          runAsUser: 1000 
+          runAsGroup: 1000
+        volumeMounts:
+        - name: applogs
+          mountPath: /logs  
+      initContainers:
+      - name: webapp-init
+        image: busybox
+        command: ['chown', '-R',"1000:1000", "/logs"]
+        volumeMounts:
+        - name: applogs
+          mountPath: /logs
+      volumes:
+      - name: applogs
+        hostPath:
+          path: /logs
+   

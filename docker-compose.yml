@@ -1,0 +1,22 @@
+version: '2.4'
+services:
+  mysql-svc:
+    image: mysql:5.7
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=petclinic
+    - MYSQL_DATABASE=petclinic
+    volumes:
+    - "./conf.d:/etc/mysql/conf.d:ro"
+    networks:
+    - mynet
+  petclinic-svc:
+    image: lsh-kakaopay-devops:0.0.1
+    ports:
+    - "8080:8080"
+    networks:
+    - mynet
+networks:
+  mynet:
+    driver: bridge  

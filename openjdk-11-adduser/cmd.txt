@@ -1,0 +1,2 @@
+docker build -f Dockerfile -t lssang0000/openjdk-11-adduser:apprun1000 .
+docker push lssang0000/openjdk-11-adduser:apprun1000
